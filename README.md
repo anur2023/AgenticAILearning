@@ -1,3 +1,5 @@
+                                                Day 1
+
 🤖 Gemini Chat App
 A simple full-stack AI chatbot built with Flask (Python backend) and Vanilla HTML/CSS/JS (frontend), powered by Google Gemini 2.5 Flash.
 
