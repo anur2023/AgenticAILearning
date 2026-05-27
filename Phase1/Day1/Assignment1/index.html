@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gemini Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Google Sans', sans-serif;
+      background: #131314;
+      color: #e3e3e3;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Header */
+    header {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .gem {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, #4285f4, #9b72cb, #d96570);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+
+    header h1 {
+      font-size: 18px;
+      font-weight: 500;
+      background: linear-gradient(135deg, #4285f4, #9b72cb, #d96570);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Chat window */
+    .chat-window {
+      flex: 1;
+      width: 100%;
+      max-width: 800px;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .chat-window::-webkit-scrollbar { width: 4px; }
+    .chat-window::-webkit-scrollbar-thumb { background: #2d2e30; border-radius: 4px; }
+
+    /* Empty state */
+    .empty {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .empty .big-gem {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #4285f4, #9b72cb, #d96570);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      margin-bottom: 4px;
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    .empty h2 {
+      font-size: 24px;
+      font-weight: 400;
+      background: linear-gradient(135deg, #4285f4, #9b72cb, #d96570);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .empty p { font-size: 14px; color: #9aa0a6; }
+
+    /* Messages */
+    .msg {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      animation: fadeUp 0.2s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg.user { flex-direction: row-reverse; }
+
+    .avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 500;
+      flex-shrink: 0;
+    }
+
+    .avatar.ai {
+      background: linear-gradient(135deg, #4285f4, #9b72cb, #d96570);
+      color: #fff; font-size: 10px; letter-spacing: 0.5px;
+    }
+
+    .avatar.user { background: #2d5a9e; color: #8ab4f8; }
+
+    .bubble {
+      max-width: 78%;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .msg.user .bubble {
+      background: #1e1f20;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px 18px 4px 18px;
+      padding: 10px 16px;
+    }
+
+    .msg.ai .bubble {
+      color: #e3e3e3;
+      padding: 4px 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* Typing dots */
+    .typing { display: flex; gap: 5px; align-items: center; padding: 6px 0; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      animation: bounce 1.3s ease-in-out infinite;
+    }
+    .dot:nth-child(1) { background: #4285f4; }
+    .dot:nth-child(2) { background: #9b72cb; animation-delay: 0.18s; }
+    .dot:nth-child(3) { background: #d96570; animation-delay: 0.36s; }
+    @keyframes bounce {
+      0%,60%,100% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
+    }
+
+    /* Input bar */
+    .input-area {
+      width: 100%;
+      max-width: 800px;
+      padding: 12px 24px 24px;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      background: #1e1f20;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 10px 12px 10px 18px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input-row:focus-within {
+      border-color: rgba(66,133,244,0.5);
+      box-shadow: 0 0 0 3px rgba(66,133,244,0.1);
+    }
+
+    textarea {
+      flex: 1;
+      background: transparent;
+      border: none; outline: none;
+      resize: none;
+      font-family: 'Google Sans', sans-serif;
+      font-size: 15px;
+      color: #e3e3e3;
+      line-height: 1.6;
+      max-height: 120px;
+      min-height: 24px;
+    }
+
+    textarea::placeholder { color: #5f6368; }
+
+    .send-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%; border: none;
+      background: linear-gradient(135deg, #4285f4, #9b72cb);
+      color: #fff;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+
+    .send-btn:hover { transform: scale(1.08); }
+    .send-btn:active { transform: scale(0.93); }
+    .send-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+    .send-btn svg { width: 17px; height: 17px; fill: #fff; }
+
+    .note {
+      text-align: center;
+      font-size: 12px;
+      color: #5f6368;
+      margin-top: 8px;
+    }
+
+    /* Error */
+    .error-text { color: #f28b82; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="gem"></div>
+  <h1>Gemini Chat</h1>
+</header>
+
+<div class="chat-window" id="chatWindow">
+  <div class="empty" id="emptyState">
+    <div class="big-gem"></div>
+    <h2>Hello! How can I help?</h2>
+    <p>Ask me anything and I'll respond using Gemini.</p>
+  </div>
+</div>
+
+<div class="input-area">
+  <div class="input-row">
+    <textarea id="userInput" placeholder="Ask Gemini..." rows="1"
+      onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+    <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <p class="note">Connected to your Flask + Gemini backend on localhost:5000</p>
+</div>
+
+<script>
+  // ── Point this to your Flask backend ──
+  const BACKEND_URL = "http://localhost:5000/chat";
+
+  let busy = false;
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  }
+
+  function scrollDown() {
+    const w = document.getElementById('chatWindow');
+    w.scrollTop = w.scrollHeight;
+  }
+
+  function removeEmpty() {
+    const e = document.getElementById('emptyState');
+    if (e) e.remove();
+  }
+
+  function addMsg(role, html) {
+    removeEmpty();
+    const win = document.getElementById('chatWindow');
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+
+    const avatarLabel = role === 'user' ? 'U' : 'G';
+    const avatarClass = role === 'user' ? 'user' : 'ai';
+
+    div.innerHTML = `
+      <div class="avatar ${avatarClass}">${avatarLabel}</div>
+      <div class="bubble">${html}</div>`;
+    win.appendChild(div);
+    scrollDown();
+    return div.querySelector('.bubble');
+  }
+
+  function showTyping() {
+    removeEmpty();
+    const win = document.getElementById('chatWindow');
+    const div = document.createElement('div');
+    div.className = 'msg ai';
+    div.id = 'typingRow';
+    div.innerHTML = `
+      <div class="avatar ai">G</div>
+      <div class="bubble">
+        <div class="typing">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>`;
+    win.appendChild(div);
+    scrollDown();
+  }
+
+  function hideTyping() {
+    const t = document.getElementById('typingRow');
+    if (t) t.remove();
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('userInput');
+    const text = input.value.trim();
+    if (!text || busy) return;
+
+    busy = true;
+    document.getElementById('sendBtn').disabled = true;
+    input.value = '';
+    input.style.height = 'auto';
+
+    // Show user message
+    addMsg('user', escHtml(text));
+    showTyping();
+
+    try {
+      // ── Call your Flask backend ──
+      const res = await fetch(BACKEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await res.json();
+      hideTyping();
+
+      if (data.error) {
+        addMsg('ai', `<span class="error-text">Error: ${escHtml(data.error)}</span>`);
+      } else {
+        addMsg('ai', escHtml(data.reply).replace(/\n/g, '<br>'));
+      }
+
+    } catch (err) {
+      hideTyping();
+      addMsg('ai', `<span class="error-text">Could not reach backend. Is Flask running on port 5000?</span>`);
+    }
+
+    busy = false;
+    document.getElementById('sendBtn').disabled = false;
+    input.focus();
+  }
+</script>
+</body>
+</html>
