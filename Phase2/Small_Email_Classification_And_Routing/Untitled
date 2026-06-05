@@ -1,0 +1,16 @@
+flowchart TD
+    A[Raw Email] --> B[Text Cleaning]
+    B --> C[Tokenization]
+    C --> D[Stopword Removal]
+    D --> E[Lemmatization]
+    E --> F[TF-IDF Vectorization]
+    F --> G[Multinomial Naive Bayes]
+    G --> H[Category Prediction]
+    
+    E -.-> I[POS Tagging]
+    E -.-> J[NER - spaCy]
+    I -.-> K[Keyword Extraction]
+    
+    style I fill:#f9f9f9,stroke:#ccc
+    style J fill:#f9f9f9,stroke:#ccc
+    style K fill:#f9f9f9,stroke:#ccc
