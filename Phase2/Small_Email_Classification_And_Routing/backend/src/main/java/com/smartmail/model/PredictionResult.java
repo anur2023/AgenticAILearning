@@ -6,6 +6,10 @@ public class PredictionResult {
 
     private String category;
     private Double confidence;
+    private String priority;
+
+    @JsonProperty("priority_confidence")
+    private Double priorityConfidence;
 
     @JsonProperty("processed_text")
     private String processedText;
@@ -24,6 +28,22 @@ public class PredictionResult {
 
     public void setConfidence(Double confidence) {
         this.confidence = confidence;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public Double getPriorityConfidence() {
+        return priorityConfidence;
+    }
+
+    public void setPriorityConfidence(Double priorityConfidence) {
+        this.priorityConfidence = priorityConfidence;
     }
 
     public String getProcessedText() {

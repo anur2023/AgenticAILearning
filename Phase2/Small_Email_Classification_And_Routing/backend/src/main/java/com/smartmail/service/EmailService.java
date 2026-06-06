@@ -25,6 +25,8 @@ public class EmailService {
                 emailText,
                 prediction.getCategory(),
                 prediction.getConfidence(),
+                prediction.getPriority(),
+                prediction.getPriorityConfidence(),
                 "user"
         );
     }

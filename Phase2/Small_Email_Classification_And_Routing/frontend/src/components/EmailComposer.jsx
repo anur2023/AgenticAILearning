@@ -1,5 +1,12 @@
 import { useState } from 'react';
 
+const PRIORITY_CLASS = {
+  Critical: 'priority-critical',
+  High: 'priority-high',
+  Medium: 'priority-medium',
+  Low: 'priority-low',
+};
+
 function EmailComposer({ onSubmit, submitting, lastPrediction }) {
   const [emailText, setEmailText] = useState('');
 
@@ -34,8 +41,13 @@ function EmailComposer({ onSubmit, submitting, lastPrediction }) {
             <div className="prediction-chip">
               Routed to <strong>{lastPrediction.category}</strong>
               <span>
-                {(lastPrediction.confidence * 100).toFixed(1)}% confidence
+                {(lastPrediction.confidence * 100).toFixed(1)}% category
               </span>
+              {lastPrediction.priority && (
+                <span className={`priority-badge ${PRIORITY_CLASS[lastPrediction.priority] || 'priority-medium'}`}>
+                  {lastPrediction.priority} priority
+                </span>
+              )}
             </div>
           )}
         </div>

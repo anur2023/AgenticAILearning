@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from predictor import classifier
+from predictor import classifier, predict_email, priority_classifier
 
 app = FastAPI(title="Smart Mail Classification API")
 
@@ -22,12 +22,15 @@ class EmailRequest(BaseModel):
 class PredictionResponse(BaseModel):
     category: str
     confidence: float
+    priority: str
+    priority_confidence: float
     processed_text: str
 
 
 @app.on_event("startup")
 def startup_event():
     classifier.load()
+    priority_classifier.load()
 
 
 @app.get("/health")
@@ -42,7 +45,13 @@ def categories():
     return {"categories": classifier.categories}
 
 
+@app.get("/priorities")
+def priorities():
+    if not priority_classifier.priorities:
+        priority_classifier.load()
+    return {"priorities": priority_classifier.priorities}
+
+
 @app.post("/predict", response_model=PredictionResponse)
 def predict(request: EmailRequest):
-    result = classifier.predict(request.email_text)
-    return result
+    return predict_email(request.email_text)

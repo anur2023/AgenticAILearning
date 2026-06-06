@@ -90,7 +90,7 @@ function App() {
           <p className="eyebrow">Smart Email Classification and Routing</p>
           <h1>Mail Routing Dashboard</h1>
           <p className="subtitle">
-            Write a customer email, classify it with the NLP model, and route it to the right team column.
+            Write a customer email, classify it with the NLP models, and route it to the right team column sorted by priority.
           </p>
         </div>
         <div className="stats-card">

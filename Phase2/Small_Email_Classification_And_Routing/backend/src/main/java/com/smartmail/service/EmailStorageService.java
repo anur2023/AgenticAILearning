@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class EmailStorageService {
+
+    private static final Map<String, Integer> PRIORITY_RANK = new LinkedHashMap<String, Integer>();
+
+    static {
+        PRIORITY_RANK.put("Critical", 4);
+        PRIORITY_RANK.put("High", 3);
+        PRIORITY_RANK.put("Medium", 2);
+        PRIORITY_RANK.put("Low", 1);
+    }
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final List<EmailMessage> emails = new ArrayList<EmailMessage>();
@@ -61,12 +71,21 @@ public class EmailStorageService {
         idSequence.set(maxId + 1);
     }
 
-    public synchronized EmailMessage save(String emailText, String category, Double confidence, String source) throws IOException {
+    public synchronized EmailMessage save(
+            String emailText,
+            String category,
+            Double confidence,
+            String priority,
+            Double priorityConfidence,
+            String source
+    ) throws IOException {
         EmailMessage message = new EmailMessage(
                 idSequence.getAndIncrement(),
                 emailText,
                 category,
                 confidence,
+                priority,
+                priorityConfidence,
                 source,
                 Instant.now().toString()
         );
@@ -80,12 +99,33 @@ public class EmailStorageService {
     }
 
     public synchronized Map<String, List<EmailMessage>> findGroupedByCategory() {
-        return emails.stream()
+        Map<String, List<EmailMessage>> grouped = emails.stream()
                 .collect(Collectors.groupingBy(
                         EmailMessage::getCategory,
                         LinkedHashMap::new,
                         Collectors.toList()
                 ));
+
+        grouped.replaceAll((category, messages) -> {
+            List<EmailMessage> sorted = new ArrayList<EmailMessage>(messages);
+            sorted.sort(
+                    Comparator.comparingInt((EmailMessage email) -> priorityRank(email.getPriority())).reversed()
+                            .thenComparing(
+                                    EmailMessage::getCreatedAt,
+                                    Comparator.nullsLast(Comparator.reverseOrder())
+                            )
+            );
+            return sorted;
+        });
+
+        return grouped;
+    }
+
+    private int priorityRank(String priority) {
+        if (priority == null) {
+            return PRIORITY_RANK.getOrDefault("Medium", 2);
+        }
+        return PRIORITY_RANK.getOrDefault(priority, 0);
     }
 
     public synchronized boolean delete(Long id) throws IOException {

@@ -6,17 +6,30 @@ public class EmailMessage {
     private String emailText;
     private String category;
     private Double confidence;
+    private String priority;
+    private Double priorityConfidence;
     private String source;
     private String createdAt;
 
     public EmailMessage() {
     }
 
-    public EmailMessage(Long id, String emailText, String category, Double confidence, String source, String createdAt) {
+    public EmailMessage(
+            Long id,
+            String emailText,
+            String category,
+            Double confidence,
+            String priority,
+            Double priorityConfidence,
+            String source,
+            String createdAt
+    ) {
         this.id = id;
         this.emailText = emailText;
         this.category = category;
         this.confidence = confidence;
+        this.priority = priority;
+        this.priorityConfidence = priorityConfidence;
         this.source = source;
         this.createdAt = createdAt;
     }
@@ -51,6 +64,22 @@ public class EmailMessage {
 
     public void setConfidence(Double confidence) {
         this.confidence = confidence;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public Double getPriorityConfidence() {
+        return priorityConfidence;
+    }
+
+    public void setPriorityConfidence(Double priorityConfidence) {
+        this.priorityConfidence = priorityConfidence;
     }
 
     public String getSource() {
