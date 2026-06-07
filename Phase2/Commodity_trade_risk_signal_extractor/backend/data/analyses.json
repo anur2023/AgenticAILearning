@@ -1,0 +1,148 @@
+[ {
+  "id" : 4,
+  "rawText" : "Gold prices surged to a fresh record high this week, breaching the $2,450 per troy ounce mark for the first time in history, as investors worldwide sought refuge from geopolitical uncertainty and mounting concerns about the global economic outlook.\nThe rally has been driven by a confluence of factors: rising geopolitical tensions in the Middle East and Eastern Europe, a softening U.S. dollar, and growing expectations that the Federal Reserve will begin cutting interest rates later this year. Gold typically moves inversely to the dollar and benefits from lower interest rate environments, as it becomes more attractive relative to yield-bearing assets.\n\"Gold is doing exactly what it's supposed to do in uncertain times,\" said Carsten Menke, head of next-generation research at Julius Baer. \"Investors are clearly reassessing their risk exposure and turning to the classic safe haven.\"\nCentral bank buying has also been a significant tailwind. According to the World Gold Council, central banks globally purchased over 1,000 tonnes of gold last year, a trend that has continued into the current year. China, India, and several emerging market central banks have been among the most active buyers, seeking to diversify their foreign exchange reserves away from the U.S. dollar.\nRetail demand for physical gold has also picked up, particularly in Asia. Gold jewelry sales in India — the world's second-largest consumer — have remained strong despite high prices, driven by wedding season demand and cultural affinity for the metal. In China, investment demand for gold bars and coins has reportedly surged as local investors look for alternatives amid property market weakness.\nOn the mining side, major producers such as Newmont and Barrick Gold have seen their share prices rise sharply in tandem with spot prices. However, analysts caution that rising energy and labor costs continue to weigh on profit margins in the sector.\nExchange-traded funds (ETFs) backed by physical gold have seen net inflows for the third consecutive month, reversing a prolonged period of outflows that characterized 2022 and 2023. Total gold ETF holdings are now at their highest level since mid-2023.\nAnalysts are divided on how much further gold can rally, but a consensus is forming around $2,500 per ounce as the next key technical level to watch in the months ahead.",
+  "cleanedText" : "Gold prices surged to a fresh record high this week, breaching the 2,450 per troy ounce mark for the first time in history, as investors worldwide sought refuge from geopolitical uncertainty and mounting concerns about the global economic outlook. The rally has been driven by a confluence of factors rising geopolitical tensions in the Middle East and Eastern Europe, a softening U.S. dollar, and growing expectations that the Federal Reserve will begin cutting interest rates later this year. Gold typically mo",
+  "entities" : {
+    "countries" : [ {
+      "name" : "U.S.",
+      "start" : 381,
+      "end" : 385
+    } ],
+    "commodities" : [ ],
+    "organizations" : [ {
+      "name" : "the Federal Reserve",
+      "start" : 424,
+      "end" : 443
+    } ],
+    "dates" : [ {
+      "name" : "this week",
+      "start" : 42,
+      "end" : 51
+    }, {
+      "name" : "later this year",
+      "start" : 478,
+      "end" : 493
+    } ]
+  },
+  "riskType" : "price surge",
+  "riskScore" : 0.9449,
+  "severity" : "HIGH",
+  "allScores" : {
+    "price surge" : 0.9449,
+    "logistics disruption" : 0.0177,
+    "political sanction" : 0.0121,
+    "supply shortage" : 0.0115,
+    "no risk" : 0.0087,
+    "weather disaster" : 0.0052
+  },
+  "sentiment" : "POSITIVE",
+  "sentimentScore" : 0.9916,
+  "summary" : "HIGH price surge detected in U.S.",
+  "createdAt" : "2026-06-07T11:48:52.198Z"
+}, {
+  "id" : 3,
+  "rawText" : "Crude oil prices stabilized this week after OPEC+ members reached a consensus to maintain existing production cuts through the third quarter of the year. Brent crude settled at approximately $83 per barrel, while West Texas Intermediate (WTI) held near $79, offering some relief to energy markets that had been volatile over the past month.\nThe agreement, finalized during a virtual ministerial meeting, extends the current output reduction of approximately 3.66 million barrels per day. Saudi Arabia and Russia, the alliance's two most influential members, reportedly played a key role in convincing hesitant members to hold the line on cuts rather than increase supply.\n\"We remain committed to market stability,\" said Saudi Energy Minister Prince Abdulaziz bin Salman following the meeting. \"Our collective decisions are based on long-term fundamentals, not short-term political pressure.\"\nThe decision comes amid mixed signals from the global economy. While fuel demand in Asia — particularly China and India — has remained robust, weaker-than-expected manufacturing data from Europe and the United States has raised questions about consumption growth in advanced economies. The International Energy Agency (IEA) recently trimmed its demand growth forecast for the year by 200,000 barrels per day, citing slower industrial activity.\nEnergy traders had been pricing in the possibility of a supply increase ahead of the meeting, so the decision to hold cuts steady pushed prices modestly higher in early trading. Analysts at Goldman Sachs maintained their year-end price target of $87 per barrel for Brent, citing continued demand strength from emerging markets.\nFor oil-importing nations, the news offers limited comfort. Countries like India, which depends on imports for over 85% of its oil needs, continue to face pressure on their current account balances. Indian refiners have increasingly turned to discounted Russian crude to manage input costs, a practice that has drawn scrutiny from Western governments.\nMeanwhile, the downstream refining sector is seeing tight margins in some regions due to elevated crude costs and softening product prices. Independent refiners in Asia are reportedly running at reduced utilization rates as profitability squeezes operations.\nThe next OPEC+ review is scheduled for later in the year, and analysts expect further adjustments to be highly data-dependent, particularly around Chinese demand signals and U.S. shale output growth.",
+  "cleanedText" : "Crude oil prices stabilized this week after OPEC members reached a consensus to maintain existing production cuts through the third quarter of the year. Brent crude settled at approximately 83 per barrel, while West Texas Intermediate WTI held near 79, offering some relief to energy markets that had been volatile over the past month. The agreement, finalized during a virtual ministerial meeting, extends the current output reduction of approximately 3.66 million barrels per day. Saudi Arabia and Russia, the",
+  "entities" : {
+    "countries" : [ {
+      "name" : "Saudi Arabia",
+      "start" : 483,
+      "end" : 495
+    }, {
+      "name" : "Russia",
+      "start" : 500,
+      "end" : 506
+    } ],
+    "commodities" : [ {
+      "name" : "crude oil",
+      "start" : 0,
+      "end" : 5
+    } ],
+    "organizations" : [ {
+      "name" : "OPEC",
+      "start" : 44,
+      "end" : 48
+    }, {
+      "name" : "West Texas Intermediate",
+      "start" : 211,
+      "end" : 234
+    } ],
+    "dates" : [ {
+      "name" : "this week",
+      "start" : 28,
+      "end" : 37
+    }, {
+      "name" : "the third quarter of the year",
+      "start" : 122,
+      "end" : 151
+    }, {
+      "name" : "79",
+      "start" : 249,
+      "end" : 251
+    }, {
+      "name" : "the past month",
+      "start" : 320,
+      "end" : 334
+    } ]
+  },
+  "riskType" : "price surge",
+  "riskScore" : 0.3714,
+  "severity" : "LOW",
+  "allScores" : {
+    "price surge" : 0.3714,
+    "supply shortage" : 0.231,
+    "logistics disruption" : 0.1558,
+    "no risk" : 0.1117,
+    "political sanction" : 0.0947,
+    "weather disaster" : 0.0353
+  },
+  "sentiment" : "POSITIVE",
+  "sentimentScore" : 0.9753,
+  "summary" : "LOW price surge detected for crude oil in Saudi Arabia",
+  "createdAt" : "2026-06-07T11:48:01.553Z"
+}, {
+  "id" : 2,
+  "rawText" : "Global wheat prices have climbed to a six-month high as supply chain disruptions continue to rattle commodity markets worldwide. Traders and analysts point to a combination of adverse weather conditions in key producing regions, logistical bottlenecks at major ports, and rising fuel costs as the primary drivers behind the surge.The Chicago Board of Trade reported wheat futures jumping nearly 8% over the past two weeks, with prices now hovering around $7.40 per bushel. Countries in North Africa and the Middle East, which are heavily dependent on wheat imports, are reportedly scrambling to secure supplies ahead of the upcoming season.Farmers in Australia and Canada — two of the world's largest wheat exporters — have warned that prolonged dry spells could further reduce harvest yields. In Australia's wheat belt, rainfall has been below average for three consecutive months, raising concerns about crop viability going into the second half of the year.Market analysts at Rabobank have revised their price outlook upward, warning clients that global inventories may tighten further if La Niña weather patterns persist through the summer. \"We are watching this very closely,\" said senior commodity analyst James Thornton. \"The buffer stocks that markets have relied on for years are not as comfortable as they once were.\"Meanwhile, importing nations are taking precautionary measures. Egypt's General Authority for Supply Commodities (GASC) issued a fresh tender last week seeking 500,000 metric tons of wheat from international suppliers at competitive prices. Similar procurement drives are underway in Turkey, Pakistan, and Indonesia.On the trade policy front, India — which briefly banned wheat exports in 2022 — has signaled it may revisit its export policies depending on domestic production outcomes, a move that could either ease or further tighten global availability depending on its direction.For food manufacturers and flour millers, the rising prices are translating directly into margin pressure. Several large food companies have already indicated plans to pass increased input costs on to consumers, raising fears of further food price inflation in economies already struggling with elevated living costs.Commodity traders are keeping a close eye on the next USDA World Agricultural Supply and Demand Estimates (WASDE) report, due in two weeks, which is expected to provide fresh guidance on global wheat stocks and price direction.",
+  "cleanedText" : "Global wheat prices have climbed to a six-month high as supply chain disruptions continue to rattle commodity markets worldwide. Traders and analysts point to a combination of adverse weather conditions in key producing regions, logistical bottlenecks at major ports, and rising fuel costs as the primary drivers behind the surge.The Chicago Board of Trade reported wheat futures jumping nearly 8% over the past two weeks, with prices now hovering around 7.40 per bushel. Countries in North Africa and the Middle",
+  "entities" : {
+    "countries" : [ {
+      "name" : "North Africa",
+      "start" : 485,
+      "end" : 497
+    } ],
+    "commodities" : [ {
+      "name" : "wheat",
+      "start" : 7,
+      "end" : 12
+    } ],
+    "organizations" : [ {
+      "name" : "The Chicago Board of Trade",
+      "start" : 330,
+      "end" : 356
+    } ],
+    "dates" : [ {
+      "name" : "six-month",
+      "start" : 38,
+      "end" : 47
+    }, {
+      "name" : "the past two weeks",
+      "start" : 403,
+      "end" : 421
+    } ]
+  },
+  "riskType" : "price surge",
+  "riskScore" : 0.4993,
+  "severity" : "LOW",
+  "allScores" : {
+    "price surge" : 0.4993,
+    "logistics disruption" : 0.1947,
+    "supply shortage" : 0.157,
+    "weather disaster" : 0.1451,
+    "no risk" : 0.0023,
+    "political sanction" : 0.0016
+  },
+  "sentiment" : "NEGATIVE",
+  "sentimentScore" : 0.9925,
+  "summary" : "LOW price surge detected for wheat in North Africa",
+  "createdAt" : "2026-06-07T11:46:58.286Z"
+} ]
